@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## check Home page component which is revalidating by tag
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+you have to put only this in fetch props 
+```
+next: {
+     tags: ['name']
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+and then you have to make api in api/revalidate/route.ts
+make sure the name of api needs to be ravalidate
+ther use revalidate Tag to revlaidate those fetch who are using tag
+```
+import { revalidateTag } from 'next/cache'
+revalidateTag(tag)
+```
+  and get a token to ensure security
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  then you need api whose data continuesly changes like i build my own api in another project of next js and running on local server and using it's path localhost:3001 and one thing more that you can not test in local mode you have to build the application and then use start
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  ## check basit page which is revalidating by path
 
-## Learn More
+  you have nothing to do in api fetching simple fetch api as usuall
 
-To learn more about Next.js, take a look at the following resources:
+then how to make api for path revalidation is 
+```
+import { revalidatePath } from 'next/cache'
+revalidatePath(path)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Note:- if you revalidate for tag like calling this:
+http://localhost:3000/api/revalidate?tag=name&secret=Basit-Sharif&pageval=tag
+then all of your pages data will be updated
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+but if you call api like this for path 
+http://localhost:3000/api/revalidate?secret=Basit-Sharif&pageval=path&path=/basit
+then only basit page data will be updated not all pages data
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+SO i recomend to use paths for revalidate
