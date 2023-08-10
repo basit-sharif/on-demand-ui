@@ -30,10 +30,11 @@ revalidatePath(path)
 
 Note:- if you revalidate for tag like calling this:
 http://localhost:3000/api/revalidate?tag=name&secret=Basit-Sharif&pageval=tag
-then all of your pages data will be updated
+then only data will be updated that have this tag inside there fetch method
 
 but if you call api like this for path 
 http://localhost:3000/api/revalidate?secret=Basit-Sharif&pageval=path&path=/basit
-then only basit page data will be updated not all pages data
+then only basit page data will be updated
 
 SO i recomend to use paths for revalidate
+when any data is updated in api so then we can call this api to update on ui also

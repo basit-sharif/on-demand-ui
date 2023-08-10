@@ -1,9 +1,5 @@
 async function dataFether() {
-    const res = await fetch('http://localhost:3001/api/hello', {
-        next: {
-            tags: ['name']
-        }
-    })
+    const res = await fetch('https://abdulbasitapis.vercel.app/api/languages')
     return res.json();
 }
 
@@ -13,7 +9,7 @@ const BasitName = async () => {
 
     return (
         <div>
-            {data.data.map((item: { name: string }, index: number) => (
+            {data.LanguagesDetails.map((item: { name: string }, index: number) => (
                 <div key={index}>{item.name}</div>
             ))}
         </div>
